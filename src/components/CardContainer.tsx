@@ -2,19 +2,14 @@ import React from 'react';
 import { View, Text, StyleSheet, Pressable} from 'react-native'; 
 
 interface Props {
-  label: string,
   content: string,
-  cardBgColor: string,
-  cardHeight: string,
-  cardWidth?: string,
   moveToScreen: any;
 }
-export const LabelCardContainer = ({ label, content, cardBgColor, cardHeight, cardWidth = '100%', moveToScreen}: Props) => {
+export const CardContainer = ({ content, moveToScreen}: Props) => {
   
   return (
     <>
-      <Pressable onPress={() => moveToScreen()} style={{ backgroundColor: (cardBgColor), height: (cardHeight), width: (cardWidth) }} >
-        <Text style={styles.label}>{label}</Text>
+      <Pressable onPress={()=>moveToScreen()}>
         <View style={styles.contentView}>
           <Text style={styles.contentText}>{content}</Text>
         </View>
@@ -24,17 +19,13 @@ export const LabelCardContainer = ({ label, content, cardBgColor, cardHeight, ca
 }
 
 const styles = StyleSheet.create({
-  label: {
-    fontWeight: 'bold',
-    position: 'absolute',
-    top: 20,
-    left: 20,
-  },
   contentView: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor:'#D9D9D9', // TODO: 임시색임으로 변경해야함
     padding: 20,
+    height: 100,
   },
   contentText: {
     textAlign: 'center'
