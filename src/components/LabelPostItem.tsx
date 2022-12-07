@@ -4,19 +4,18 @@ import { View, Text, StyleSheet, Pressable} from 'react-native';
 interface Props {
   label: string,
   content: string,
-  cardBgColor: string,
-  cardHeight: string,
-  cardWidth?: string,
-  moveToScreen: any;
+  numberOfAnswers: number,
+  moveToScreen: any,
 }
-export const LabelCardContainer = ({ label, content, cardBgColor, cardHeight, cardWidth = '100%', moveToScreen}: Props) => {
+export const LabelPostItem = ({ label, content, numberOfAnswers, moveToScreen}: Props) => {
   
   return (
     <>
-      <Pressable onPress={() => moveToScreen()} style={{ backgroundColor: (cardBgColor), height: (cardHeight), width: (cardWidth) }} >
+      <Pressable onPress={()=>moveToScreen()} style={styles.postView} >
         <Text style={styles.label}>{label}</Text>
         <View style={styles.contentView}>
           <Text style={styles.contentText}>{content}</Text>
+          <Text style={styles.numText}>{numberOfAnswers}</Text>
         </View>
       </Pressable>
     </>
@@ -24,6 +23,9 @@ export const LabelCardContainer = ({ label, content, cardBgColor, cardHeight, ca
 }
 
 const styles = StyleSheet.create({
+  postView: {
+    backgroundColor: '#F6D500',
+  },
   label: {
     fontWeight: 'bold',
     position: 'absolute',
@@ -31,12 +33,16 @@ const styles = StyleSheet.create({
     left: 20,
   },
   contentView: {
-    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    justifyContent: 'center',
     padding: 20,
+    height: 100,
   },
   contentText: {
     textAlign: 'center'
+  },
+  numText: {
+    fontSize: 20
   }
 })

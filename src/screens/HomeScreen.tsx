@@ -20,10 +20,10 @@ const dummyData = [
 const HomeScreen = ({ navigation }: any) => { 
 	return ( 
     <Container>
-      {dummyData.map((data, index) => (<LabelCardContainer key={index} label={data.label} content={data.content} cardBgColor={data.cardBgColor} cardHeight={data.cardHeight} />))}
+      {dummyData.map((data, index) => (<LabelCardContainer key={index} label={data.label} content={data.content} cardBgColor={data.cardBgColor} cardHeight={data.cardHeight} moveToScreen={()=>navigation.navigate('QuestionScreen')} />))}
       <View style={styles.twoCol}>
-        <LabelCardContainer label={'Q'} content={'답변하기'} cardBgColor={'#6EACBA'} cardHeight={'100%'} cardWidth={'50%'}/>
-        <LabelCardContainer label={'Q'} content={'질문하기'} cardBgColor={'#4EA163'} cardHeight={'100%'} cardWidth={'50%'}/>
+        <LabelCardContainer label={'Q'} content={'답변하기'} cardBgColor={'#6EACBA'} cardHeight={'100%'} cardWidth={'50%'} moveToScreen={()=>navigation.navigate('QuestionListScreen')}/>
+        <LabelCardContainer label={'Q'} content={'질문하기'} cardBgColor={'#4EA163'} cardHeight={'100%'} cardWidth={'50%'} moveToScreen={()=>navigation.navigate('WriteQuestionScreen')}/>
       </View>
     </Container>
   )
@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
   twoCol: {
     flexDirection: 'row',
     width: '100%',
-    backgroundColor: 'red',
     height: '20%'
  }
 })
