@@ -99,12 +99,12 @@ const styles = StyleSheet.create({
   formView: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
   },
   formContainer: {
     flex: 1,
     margin: 100,
     width: '80%',
+    justifyContent: 'center',
   },
   formBtnView: {
     width: '80%',
