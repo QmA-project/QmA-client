@@ -4,5 +4,5 @@ export const CustomTextInput = styled.TextInput`
   border-bottom-color: #EE3E36;
   border-bottom-width: 1px;
   margin: 5px 0px;
-  padding: 5px 0;
+  padding: 10px 0;
 `
