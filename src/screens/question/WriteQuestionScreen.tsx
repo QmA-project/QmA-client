@@ -9,8 +9,8 @@ import {
   KeyboardEvent,
   KeyboardAvoidingView,
   Dimensions,
+  ScrollView
 } from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
 import {Container} from '../../components/Container';
 import {LineRoundButton} from '../../components/LineRoundButton';
 import {ModalContainer} from '../../components/ModalContainer';
