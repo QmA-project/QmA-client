@@ -9,7 +9,9 @@ import {
   Keyboard,
   KeyboardEvent,
   Platform,
+  Dimensions,
 } from 'react-native';
+import RightArrowIcon from '../../icons/RightArrowIcon';
 interface Props {}
 export const QuestionScreen = () => {
   const [keyboardHeight, setKeyboardHeight] = useState(0);
@@ -47,17 +49,19 @@ export const QuestionScreen = () => {
             가장 열정을 쏟은 순간은 언제인가요?
           </Text>
         </View>
-        <View style={styles.textInputView}>
+        <View
+          style={[
+            styles.textInputView,
+            {
+              marginBottom:
+                Platform.OS === 'ios' && isFocused ? keyboardHeight : 0,
+            }]
+          }
+        >
           <TextInput
             placeholder="본인의 이야기를 입력하세요."
             placeholderTextColor={'#fff'}
-            style={[
-              styles.textInputText,
-              {
-                marginBottom:
-                  Platform.OS === 'ios' && isFocused ? keyboardHeight : 0,
-              },
-            ]}
+            style={[styles.textInputText]}
             autoFocus={true}
             onFocus={(e: any) => {
               onInputFocus();
@@ -66,6 +70,7 @@ export const QuestionScreen = () => {
               onInputFocusOut();
             }}
           ></TextInput>
+          <RightArrowIcon />
         </View>
       </ScrollView>
     </>
@@ -86,11 +91,13 @@ const styles = StyleSheet.create({
   },
   textInputView: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
   textInputText: {
     borderColor: '#fff',
     borderWidth: 1,
     borderRadius: 20,
-    width: '100%',
+    width: Dimensions.get('screen').width - 60,
+    marginRight: 5,
   },
 });
