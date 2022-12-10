@@ -53,7 +53,7 @@ export const QuestionListScreen = ({navigation}: Props) => {
         label={'HOT 질문'}
         content={hotQuestion?.content}
         numberOfAnswers={hotQuestion?.numOfAnswers}
-        moveToScreen={() => console.log('HOT 질문으로 이동')}
+        moveToScreen={() =>  navigation.navigate('QuestionScreen', { questionId :hotQuestion?.questionId, content: hotQuestion?.content })}
       />
       <FlatList
         style={{flex: 1, backgroundColor: '#FFFFFF'}}
