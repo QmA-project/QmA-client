@@ -106,10 +106,10 @@ export const QuestionListScreen = () => {
           // margin: 0,
         },
         tabBarIndicatorStyle: {
-          backgroundColor: '#EE3E36',
+          backgroundColor: '#fff',
           height: 2,
           width: Dimensions.get('window').width / 3,
-          bottom: -1,
+          bottom: 0,
           marginHorizontal: Dimensions.get('window').width / 12,
         },
         tabBarShowLabel: true,
