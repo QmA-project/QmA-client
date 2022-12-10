@@ -13,31 +13,9 @@ import {PostItem} from '../../components/PostItem';
 import {LabelPostItem} from '../../components/LabelPostItem';
 import {Container} from '../../components/Container';
 import {CardContainer} from '../../components/CardContainer';
+import { getQuestionList } from '../../common/question';
 
 interface Props {}
-
-const sampleResponseData = {
-  questions: [
-    {
-      questionId: 1,
-      content:
-        '다시 돌아가도 그만큼은 못하겠다!\n가장 열정을 쏟은 순간은 언제인가요?',
-      numAnswer: 14,
-    },
-    {
-      questionId: 2,
-      content:
-        '다시 돌아가도 그만큼은 못하겠다!\n가장 열정을 쏟은 순간은 언제인가요?',
-      numAnswer: 144,
-    },
-    {
-      questionId: 3,
-      content:
-        '다시 돌아가도 그만큼은 못하겠다!\n가장 열정을 쏟은 순간은 언제인가요?',
-      numAnswer: 4,
-    },
-  ],
-};
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -46,8 +24,8 @@ export const QuestionListScreen = () => {
 
   useEffect(function getResponse() {
     (async function getQuestionListData() {
-      // const data = await getQuestionList();
-      setQuestionList(sampleResponseData?.questions);
+      const data = await getQuestionList();
+      setQuestionList(data.data.questions);
     })();
   }, []);
 
