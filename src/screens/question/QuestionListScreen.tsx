@@ -44,7 +44,7 @@ export const QuestionListScreen = () => {
           <PostItem
             key={question.item.questionId}
             content={question.item.content}
-            numberOfAnswers={question.item.numAnswer}
+            numberOfAnswers={question.item.numOfAnswers}
             moveToScreen={() =>
               console.log(question.item.questionId, '의 상세 화면으로 이동')
             }

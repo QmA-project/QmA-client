@@ -9,7 +9,7 @@ interface QuestionDto {
   userId?: string,
   userNickname?: string,
   isAnswerPrivate?: boolean,
-  numAnswer?: number,
+  numberOfAnswers?: number,
   didAnswer?: boolean,
   isAnswerReadable?: boolean,
 }
