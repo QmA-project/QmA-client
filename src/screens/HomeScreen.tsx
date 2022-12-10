@@ -1,27 +1,64 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+
 import {Container} from '../components/Container';
 import {LabelCardContainer} from '../components/LabelCardContainer';
+import {getDailyQuestion, getHotQuestion} from '../common/question';
 
+type RootStackParamList = {
+  QuestionScreen: {questionId: number; content: string};
+};
+
+type Props = NativeStackScreenProps<RootStackParamList>;
 const HomeScreen = ({navigation}: any) => {
+  const [hotQuestion, setHotQuestion] = useState<QuestionDto>();
+  const [dailyQuestion, setDailyQuestion] = useState<QuestionDto>();
+
+  const today = new Date();
+  const todayDate =
+    today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+  useEffect(function getResponse() {
+    (async function getHotQuestionData() {
+      const hotQuesitonData = await getHotQuestion(todayDate);
+      setHotQuestion(hotQuesitonData.data);
+    })();
+  }, []);
+
+  useEffect(function getResponse() {
+    (async function getHotQuestionData() {
+      const dailyQuesitonData = await getDailyQuestion(todayDate);
+      setDailyQuestion(dailyQuesitonData.data);
+    })();
+  }, []);
+
   return (
     <Container>
       <LabelCardContainer
         label={'오늘의 질문'}
-        content={
-          '다시 돌아가도 그만큼은 못하겠다!\n가장 열정을 쏟은 순간은 언제인가요?'
-        }
+        content={dailyQuestion?.content}
         cardBgColor={'#EE3E36'}
         cardHeight={'50%'}
-        moveToScreen={() => navigation.navigate('QuestionScreen')}
+        moveToScreen={() =>
+          navigation.navigate('QuestionScreen', {
+            questionId: dailyQuestion?.questionId,
+            content: dailyQuestion?.content,
+          })
+        }
       />
       <View style={styles.divider} />
       <LabelCardContainer
         label={'HOT 질문'}
-        content={'순간이 기억 남는 노래가 있나요?'}
+        content={hotQuestion?.content}
         cardBgColor={'#F6D500'}
         cardHeight={'25%'}
-        moveToScreen={() => navigation.navigate('QuestionScreen')}
+        moveToScreen={() =>
+          navigation.navigate('QuestionScreen', {
+            questionId: hotQuestion?.questionId,
+            content: hotQuestion?.content,
+          })
+        }
       />
       <View style={styles.divider} />
       <View style={styles.twoCol}>
