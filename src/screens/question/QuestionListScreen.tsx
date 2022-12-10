@@ -14,8 +14,9 @@ import {PostItem} from '../../components/PostItem';
 import {LabelPostItem} from '../../components/LabelPostItem';
 import {Container} from '../../components/Container';
 import {CardContainer} from '../../components/CardContainer';
-import { getQuestionList } from '../../common/question';
+import { getHotQuestion, getQuestionList } from '../../common/question';
 import { Navigate } from 'react-router-dom';
+import { useSafeAreaFrame } from 'react-native-safe-area-context';
 
 
 type RootStackParamList = {
@@ -28,6 +29,7 @@ const Tab = createMaterialTopTabNavigator();
 
 export const QuestionListScreen = ({navigation}: Props) => {
   const [questionList, setQuestionList] = useState<QuestionDto[]>([]);
+  const [hotQuestion, setHotQuestion] = useState<QuestionDto>();
 
   useEffect(function getResponse() {
     (async function getQuestionListData() {
@@ -36,13 +38,22 @@ export const QuestionListScreen = ({navigation}: Props) => {
     })();
   }, []);
 
+  useEffect(function getResponse() {
+    (async function getQuestionListData() {
+      let today = new Date();
+      let todayDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+      const hotQuesitonData = await getHotQuestion(todayDate);
+      setHotQuestion(hotQuesitonData.data);
+    })();
+  }, []);
+
   const AllTypePostListFragment = () => (
     <>
       <LabelPostItem
         label={'HOT 질문'}
-        content={'순간이 생각나는 노래가 있다면 무엇인가요?'}
-        numberOfAnswers={235}
-        moveToScreen={() => console.log('HOT 질문으로 이동')}
+        content={hotQuestion?.content}
+        numberOfAnswers={hotQuestion?.numOfAnswers}
+        moveToScreen={() =>  navigation.navigate('QuestionScreen', { questionId :hotQuestion?.questionId, content: hotQuestion?.content })}
       />
       <FlatList
         style={{flex: 1, backgroundColor: '#FFFFFF'}}

@@ -13,3 +13,19 @@ export const getQuestionList = async() => {
     return e.response;
   }
 }
+
+export const getHotQuestion = async(todayDate: string) => {
+  try {
+    const response = await client.post<AxiosResponse<QuestionDto>>(
+      `/questions/hot`,
+      {
+        todayDate: todayDate
+      }
+    );
+
+    return response;
+  } catch (e: any) {
+    console.log("getHotQuestion:", e);
+    return e.response;
+  }
+}
