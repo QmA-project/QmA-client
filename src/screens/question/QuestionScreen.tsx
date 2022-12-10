@@ -99,5 +99,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     width: Dimensions.get('screen').width - 60,
     marginRight: 5,
+    padding: 10,
   },
 });
