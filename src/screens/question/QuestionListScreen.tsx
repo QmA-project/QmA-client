@@ -8,18 +8,25 @@ import {
   Text,
 } from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {PostItem} from '../../components/PostItem';
 import {LabelPostItem} from '../../components/LabelPostItem';
 import {Container} from '../../components/Container';
 import {CardContainer} from '../../components/CardContainer';
 import { getQuestionList } from '../../common/question';
+import { Navigate } from 'react-router-dom';
 
-interface Props {}
+
+type RootStackParamList = {
+  QuestionScreen: {questionId: number, content: string}
+};
+
+type Props = NativeStackScreenProps<RootStackParamList>;
 
 const Tab = createMaterialTopTabNavigator();
 
-export const QuestionListScreen = () => {
+export const QuestionListScreen = ({navigation}: Props) => {
   const [questionList, setQuestionList] = useState<QuestionDto[]>([]);
 
   useEffect(function getResponse() {
@@ -46,7 +53,7 @@ export const QuestionListScreen = () => {
             content={question.item.content}
             numberOfAnswers={question.item.numOfAnswers}
             moveToScreen={() =>
-              console.log(question.item.questionId, '의 상세 화면으로 이동')
+              navigation.navigate('QuestionScreen', { questionId : question.item.questionId, content: question.item.content })
             }
           />
         )}
