@@ -14,12 +14,11 @@ import {CustomTextInput} from '../../components/TextInputContainer';
 
 type RootStackParamList = {
   HomeScreen: undefined;
-  SignUpScreen: undefined;
 };
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
-const SignInScreen = ({navigation}: Props) => {
+const SignUpScreen = ({navigation}: Props) => {
   const [keyboardHeight, setKeyboardHeight] = useState(0);
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
@@ -67,13 +66,31 @@ const SignInScreen = ({navigation}: Props) => {
               onInputFocusOut();
             }}
           />
+          <CustomTextInput
+            placeholder="비밀번호 확인"
+            onFocus={(e: any) => {
+              onInputFocus();
+            }}
+            onBlur={(e: any) => {
+              onInputFocusOut();
+            }}
+          />
+          <CustomTextInput
+            placeholder="닉네임"
+            onFocus={(e: any) => {
+              onInputFocus();
+            }}
+            onBlur={(e: any) => {
+              onInputFocusOut();
+            }}
+          />
         </View>
         <View
           style={[
             styles.formBtnView,
             {
               marginBottom:
-                Platform.OS === 'ios' ? ( isFocused ? keyboardHeight : 20 ) : 0,
+                Platform.OS === 'ios' ? (isFocused ? keyboardHeight : 20) : 0,
             },
           ]}
         >
@@ -81,10 +98,7 @@ const SignInScreen = ({navigation}: Props) => {
             onPress={() => navigation.navigate('HomeScreen')}
             style={styles.btn}
           >
-            <Text style={styles.btnText}>로그인</Text>
-          </Pressable>
-          <Pressable onPress={() => navigation.navigate('SignUpScreen')}>
-            <Text style={styles.signUpText}>회원가입</Text>
+            <Text style={styles.btnText}>회원가입 완료</Text>
           </Pressable>
         </View>
       </View>
@@ -103,7 +117,6 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     flex: 1,
-    margin: 100,
     width: '80%',
     justifyContent: 'center',
   },
@@ -112,8 +125,9 @@ const styles = StyleSheet.create({
   },
   btn: {
     justifyContent: 'center',
-    height: 50,
     backgroundColor: '#EE3E36',
+    marginBottom: 15,
+    height: 50,
   },
   btnText: {
     textAlign: 'center',
@@ -124,4 +138,4 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
 });
-export default SignInScreen;
+export default SignUpScreen;

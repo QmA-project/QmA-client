@@ -9,8 +9,9 @@ import {
   KeyboardEvent,
   KeyboardAvoidingView,
   Dimensions,
+  ScrollView,
+  Platform
 } from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
 import {Container} from '../../components/Container';
 import {LineRoundButton} from '../../components/LineRoundButton';
 import {ModalContainer} from '../../components/ModalContainer';
@@ -73,7 +74,7 @@ export const WriteQuestionScreen = () => {
       <View
         style={[
           styles.buttonContainer,
-          {paddingBottom: isFocused ? keyboardHeight + 10 : 30},
+          {paddingBottom: Platform.OS === 'ios' ? (isFocused ? keyboardHeight + 15 : 20) : 15},
         ]}
       >
         <LineRoundButton

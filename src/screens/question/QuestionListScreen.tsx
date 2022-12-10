@@ -8,46 +8,39 @@ import {
   Text,
 } from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {PostItem} from '../../components/PostItem';
 import {LabelPostItem} from '../../components/LabelPostItem';
 import {Container} from '../../components/Container';
 import {CardContainer} from '../../components/CardContainer';
+import { getHotQuestion, getQuestionList } from '../../common/questionApi';
 
-interface Props {}
-
-const sampleResponseData = {
-  questions: [
-    {
-      questionId: 1,
-      content:
-        '다시 돌아가도 그만큼은 못하겠다!\n가장 열정을 쏟은 순간은 언제인가요?',
-      numAnswer: 14,
-    },
-    {
-      questionId: 2,
-      content:
-        '다시 돌아가도 그만큼은 못하겠다!\n가장 열정을 쏟은 순간은 언제인가요?',
-      numAnswer: 144,
-    },
-    {
-      questionId: 3,
-      content:
-        '다시 돌아가도 그만큼은 못하겠다!\n가장 열정을 쏟은 순간은 언제인가요?',
-      numAnswer: 4,
-    },
-  ],
+type RootStackParamList = {
+  QuestionScreen: {questionId: number, content: string}
 };
+
+type Props = NativeStackScreenProps<RootStackParamList>;
 
 const Tab = createMaterialTopTabNavigator();
 
-export const QuestionListScreen = () => {
+export const QuestionListScreen = ({navigation}: Props) => {
   const [questionList, setQuestionList] = useState<QuestionDto[]>([]);
+  const [hotQuestion, setHotQuestion] = useState<QuestionDto>();
 
   useEffect(function getResponse() {
     (async function getQuestionListData() {
-      // const data = await getQuestionList();
-      setQuestionList(sampleResponseData?.questions);
+      const data = await getQuestionList();
+      setQuestionList(data.data.questions);
+    })();
+  }, []);
+
+  useEffect(function getResponse() {
+    (async function getHotQuestionData() {
+      let today = new Date();
+      let todayDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+      const hotQuesitonData = await getHotQuestion(todayDate);
+      setHotQuestion(hotQuesitonData.data);
     })();
   }, []);
 
@@ -55,9 +48,9 @@ export const QuestionListScreen = () => {
     <>
       <LabelPostItem
         label={'HOT 질문'}
-        content={'순간이 생각나는 노래가 있다면 무엇인가요?'}
-        numberOfAnswers={235}
-        moveToScreen={() => console.log('HOT 질문으로 이동')}
+        content={hotQuestion?.content}
+        numberOfAnswers={hotQuestion?.numOfAnswers}
+        moveToScreen={() =>  navigation.navigate('QuestionScreen', { questionId :hotQuestion?.questionId, content: hotQuestion?.content })}
       />
       <FlatList
         style={{flex: 1, backgroundColor: '#FFFFFF'}}
@@ -66,9 +59,9 @@ export const QuestionListScreen = () => {
           <PostItem
             key={question.item.questionId}
             content={question.item.content}
-            numberOfAnswers={question.item.numAnswer}
+            numberOfAnswers={question.item.numOfAnswers}
             moveToScreen={() =>
-              console.log(question.item.questionId, '의 상세 화면으로 이동')
+              navigation.navigate('QuestionScreen', { questionId : question.item.questionId, content: question.item.content })
             }
           />
         )}
@@ -106,10 +99,10 @@ export const QuestionListScreen = () => {
           // margin: 0,
         },
         tabBarIndicatorStyle: {
-          backgroundColor: '#EE3E36',
+          backgroundColor: '#fff',
           height: 2,
           width: Dimensions.get('window').width / 3,
-          bottom: -1,
+          bottom: 0,
           marginHorizontal: Dimensions.get('window').width / 12,
         },
         tabBarShowLabel: true,

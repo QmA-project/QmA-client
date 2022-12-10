@@ -7,12 +7,14 @@ import SignInScreen from './src/screens/signIn/SignInScreen';
 import { QuestionListScreen } from './src/screens/question/QuestionListScreen';
 import { WriteQuestionScreen } from './src/screens/question/WriteQuestionScreen';
 import { QuestionScreen } from './src/screens/question/QuestionScreen';
+import SignUpScreen from './src/screens/signUp/SignUpScreen';
   
 const Stack = createStackNavigator(); 
 const App = () => { 
 	return ( 
         <NavigationContainer> 
             <Stack.Navigator> 
+              <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={({ }) => ({ title: '', animation: 'slide_from_right',})}/> 
               <Stack.Screen name="SignInScreen" component={SignInScreen} options={({ }) => ({ title: '', animation: 'slide_from_right',})}/> 
               <Stack.Screen name="HomeScreen" component={HomeScreen} options={({ }) => ({ title: '', animation: 'slide_from_right',})}/> 
               <Stack.Screen name="QuestionScreen" component={QuestionScreen} options={({ }) => ({ title: '', animation: 'slide_from_right',})}/> 
