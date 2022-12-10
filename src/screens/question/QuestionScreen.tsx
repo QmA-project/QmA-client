@@ -11,9 +11,15 @@ import {
   Platform,
   Dimensions,
 } from 'react-native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import RightArrowIcon from '../../icons/RightArrowIcon';
-interface Props {}
-export const QuestionScreen = () => {
+
+type RootStackParamList = {
+ 
+};
+
+type Props = NativeStackScreenProps<RootStackParamList>;
+export const QuestionScreen = ({navigation, route}: Props) => {
   const [keyboardHeight, setKeyboardHeight] = useState(0);
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
@@ -45,8 +51,7 @@ export const QuestionScreen = () => {
       >
         <View style={styles.contentView}>
           <Text style={styles.contentText}>
-            다시 돌아가도 그만큼은 못하겠다{`\n`}
-            가장 열정을 쏟은 순간은 언제인가요?
+            {route.params.content}
           </Text>
         </View>
         <View
