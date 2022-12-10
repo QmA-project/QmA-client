@@ -4,7 +4,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {Container} from '../components/Container';
 import {LabelCardContainer} from '../components/LabelCardContainer';
-import {getDailyQuestion, getHotQuestion} from '../common/question';
+import {getDailyQuestion, getHotQuestion} from '../common/questionApi';
 
 type RootStackParamList = {
   QuestionScreen: {questionId: number; content: string};
@@ -27,7 +27,7 @@ const HomeScreen = ({navigation}: any) => {
   }, []);
 
   useEffect(function getResponse() {
-    (async function getHotQuestionData() {
+    (async function getDailyQuestionData() {
       const dailyQuesitonData = await getDailyQuestion(todayDate);
       setDailyQuestion(dailyQuesitonData.data);
     })();

@@ -14,10 +14,7 @@ import {PostItem} from '../../components/PostItem';
 import {LabelPostItem} from '../../components/LabelPostItem';
 import {Container} from '../../components/Container';
 import {CardContainer} from '../../components/CardContainer';
-import { getHotQuestion, getQuestionList } from '../../common/question';
-import { Navigate } from 'react-router-dom';
-import { useSafeAreaFrame } from 'react-native-safe-area-context';
-
+import { getHotQuestion, getQuestionList } from '../../common/questionApi';
 
 type RootStackParamList = {
   QuestionScreen: {questionId: number, content: string}
@@ -39,7 +36,7 @@ export const QuestionListScreen = ({navigation}: Props) => {
   }, []);
 
   useEffect(function getResponse() {
-    (async function getQuestionListData() {
+    (async function getHotQuestionData() {
       let today = new Date();
       let todayDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
       const hotQuesitonData = await getHotQuestion(todayDate);
